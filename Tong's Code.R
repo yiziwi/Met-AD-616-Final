@@ -15,5 +15,12 @@ difference <- diff(as.matrix(Peak_RG_1)) %>% as.data.frame()
 difference <- cbind(difference, index = c(2:21))
 df <- melt(difference, id.vars = 'index', variable.name = 'series')
 
+x <- cumsum(rowSums(Peak_RG, na.rm=TRUE))
+y <- cumsum(colSums(Peak_RG,na.rm=TRUE))
+
+df <-data.frame(x,y)%>% mutate(z=x-y)
+df
+hist(df$z)
+
 ggplot(df, aes(index, value)) +
   geom_line(aes(color = series)) 
