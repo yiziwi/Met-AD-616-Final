@@ -17,3 +17,9 @@ df <- melt(difference, id.vars = 'index', variable.name = 'series')
 
 ggplot(df, aes(index, value)) +
   geom_line(aes(color = series)) 
+x <- cumsum(rowSums(Peak_RG, na.rm=TRUE))
+y <- cumsum(colSums(Peak_RG,na.rm=TRUE))
+
+df <-data.frame(x,y)%>% mutate(z=x-y)
+df
+hist(df$z)
